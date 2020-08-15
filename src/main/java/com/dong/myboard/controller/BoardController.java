@@ -1,6 +1,7 @@
 package com.dong.myboard.controller;
 
 import com.dong.myboard.domain.BoardVO;
+import com.dong.myboard.domain.Criteria;
 import com.dong.myboard.sevice.BoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,10 +19,10 @@ public class BoardController {
     private BoardService boardService;
 
     @GetMapping("/list")
-    public void list(Model model){
+    public void list(Criteria cri,Model model){
         log.info("list...");
 
-        model.addAttribute("list",boardService.getList());
+        model.addAttribute("list",boardService.getList(cri));
     }
 
     @GetMapping("/register")

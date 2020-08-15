@@ -1,6 +1,7 @@
 package com.dong.myboard.sevice;
 
 import com.dong.myboard.domain.BoardVO;
+import com.dong.myboard.domain.Criteria;
 import com.dong.myboard.mapper.BoardMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -40,9 +41,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<BoardVO> getList() {
-        log.info("getList..... ");
-        return mapper.getList();
+    public List<BoardVO> getList(Criteria cri) {
+        log.info("get List with criteria: "+cri);
+
+        return mapper.getListWithPaging(cri);
     }
 
 }

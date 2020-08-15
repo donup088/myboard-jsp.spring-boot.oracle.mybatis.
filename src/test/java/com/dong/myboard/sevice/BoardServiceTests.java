@@ -1,6 +1,7 @@
 package com.dong.myboard.sevice;
 
 import com.dong.myboard.domain.BoardVO;
+import com.dong.myboard.domain.Criteria;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ class BoardServiceTests {
 
     @Test
     public void testGetList(){
-        boardService.getList().forEach(boardVO -> log.info(boardVO));
+        boardService.getList(new Criteria(3,10)).forEach(boardVO -> log.info(boardVO));
     }
 
     @Test
