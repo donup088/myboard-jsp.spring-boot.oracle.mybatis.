@@ -2,6 +2,7 @@ package com.dong.myboard.controller;
 
 import com.dong.myboard.domain.BoardVO;
 import com.dong.myboard.domain.Criteria;
+import com.dong.myboard.domain.PageDTO;
 import com.dong.myboard.sevice.BoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,9 +21,11 @@ public class BoardController {
 
     @GetMapping("/list")
     public void list(Criteria cri,Model model){
-        log.info("list...");
+        log.info("list: "+cri);
+        int total=boardService.getTotal(cri);
 
         model.addAttribute("list",boardService.getList(cri));
+        model.addAttribute("pageMaker",new PageDTO(cri,total));
     }
 
     @GetMapping("/register")
@@ -42,29 +45,35 @@ public class BoardController {
     }
 
     @GetMapping({"/get","/modify"})
-    public void get(@RequestParam("bno")Long bno, Model model){
+    public void get(@RequestParam("bno")Long bno,@ModelAttribute("cri")Criteria cri, Model model){
         log.info("get... or modify...");
         model.addAttribute("board",boardService.get(bno));
     }
 
     @PostMapping("/modify")
-    public String modify(BoardVO board,RedirectAttributes rttr){
+    public String modify(BoardVO board,@ModelAttribute("cri")Criteria cri, RedirectAttributes rttr){
         log.info("modify...."+board);
 
         if(boardService.modify(board)){
             rttr.addFlashAttribute("result","success");
         }
 
+        rttr.addAttribute("pageNum",cri.getPageNum());
+        rttr.addAttribute("amount",cri.getAmount());
+
         return "redirect:/board/list";
     }
 
     @PostMapping("/remove")
-    public String remove(@RequestParam("bno")Long bno,RedirectAttributes rttr){
+    public String remove(@RequestParam("bno")Long bno,@ModelAttribute("cri")Criteria cri,RedirectAttributes rttr){
         log.info("remove..."+bno);
 
         if(boardService.remove(bno)){
             rttr.addFlashAttribute("result","success");
         }
+
+        rttr.addAttribute("pageNum",cri.getPageNum());
+        rttr.addAttribute("amount",cri.getAmount());
 
         return "redirect:/board/list";
     }
