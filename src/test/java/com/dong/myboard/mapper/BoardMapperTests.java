@@ -71,4 +71,13 @@ class BoardMapperTests {
         List<BoardVO> list=boardMapper.getListWithPaging(cri);
         list.forEach(boardVO -> log.info(boardVO));
     }
+
+    @Test
+    public void testSearch(){
+        Criteria cri=new Criteria();
+        cri.setKeyword("별");
+        cri.setType("TC");
+        List<BoardVO> list= boardMapper.getListWithPaging(cri);
+        list.forEach(boardVO -> log.info(boardVO));
+    }
 }
