@@ -42,6 +42,45 @@
     </div>
 </div>
 <%@ include file="../includes/footer.jsp" %>
+
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+
+<script>
+    console.log("==========JS TEST==========")
+    var bnoValue='<c:out value="${board.bno}"/>';
+
+   /* replyService.add({
+        reply:"JS ADD REPLY TEST",replyer:"DONG",bno:bnoValue
+    },
+    function (result) {
+        alert("RESULT: "+result);
+    })*/
+   /* replyService.getList({bno:bnoValue,page:1},function (list) {
+        for(var i=0,len=list.length||0;i<len;i++){
+            console.log(list[i]);
+        }
+    })*/
+    /*replyService.remove(21,function (result){
+        if(result==="success"){
+            alert("REMOVED");
+        }
+    },
+    function (err) {
+        alert("ERROR...")
+    });*/
+  /*  replyService.update({
+        rno:1,bno:bnoValue,reply:"수정되었음."
+    },function (result) {
+        alert(result);
+    })*/
+    replyService.get(1,function (data) {
+        console.log(data);
+    })
+
+
+</script>
+
+
 <script>
     $(document).ready(function () {
         var operForm=$("#operForm");
