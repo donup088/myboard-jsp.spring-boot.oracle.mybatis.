@@ -3,6 +3,7 @@ package com.dong.myboard.sevice;
 import com.dong.myboard.domain.Criteria;
 import com.dong.myboard.domain.ReplyPageDTO;
 import com.dong.myboard.domain.ReplyVO;
+import com.dong.myboard.mapper.BoardMapper;
 import com.dong.myboard.mapper.ReplyMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -14,13 +15,18 @@ import java.util.List;
 
 @Service
 @Log4j2
-@AllArgsConstructor
 public class ReplyServiceImpl implements ReplyService{
+    @Setter(onMethod_ ={@Autowired} )
     private ReplyMapper replyMapper;
+
+    @Setter(onMethod_ ={@Autowired} )
+    private BoardMapper boardMapper;
 
     @Override
     public int register(ReplyVO reply) {
         log.info("register...."+reply);
+
+        boardMapper.updateReplyCnt(reply.getBno(), 1);
         return replyMapper.insert(reply);
     }
 
@@ -39,6 +45,9 @@ public class ReplyServiceImpl implements ReplyService{
     @Override
     public int remove(Long rno) {
         log.info("remove...."+rno);
+        ReplyVO reply=replyMapper.read(rno);
+
+        boardMapper.updateReplyCnt(reply.getBno(), -1);
         return replyMapper.delete(rno);
     }
 
