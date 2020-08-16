@@ -1,6 +1,7 @@
 package com.dong.myboard.controller;
 
 import com.dong.myboard.domain.Criteria;
+import com.dong.myboard.domain.ReplyPageDTO;
 import com.dong.myboard.domain.ReplyVO;
 import com.dong.myboard.sevice.ReplyService;
 import lombok.AllArgsConstructor;
@@ -32,11 +33,11 @@ public class ReplyController {
     }
 
     @GetMapping(value = "/pages/{bno}/{page}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ReplyVO>> getList(@PathVariable("page")int page,@PathVariable("bno")Long bno){
+    public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page")int page, @PathVariable("bno")Long bno){
         log.info("getList........");
-        Criteria cri=new Criteria(page,1);
+        Criteria cri=new Criteria(page,10);
 
-        return new ResponseEntity<>(replyService.getList(cri,bno),HttpStatus.OK);
+        return new ResponseEntity<>(replyService.getListPage(cri,bno),HttpStatus.OK);
     }
 
     @GetMapping(value = "/{rno}",produces = MediaType.APPLICATION_JSON_VALUE)

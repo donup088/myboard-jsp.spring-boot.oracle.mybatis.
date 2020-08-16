@@ -1,6 +1,7 @@
 package com.dong.myboard.sevice;
 
 import com.dong.myboard.domain.Criteria;
+import com.dong.myboard.domain.ReplyPageDTO;
 import com.dong.myboard.domain.ReplyVO;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ReplyService {
     public int remove(Long rno);
 
     public List<ReplyVO> getList(Criteria cri,Long bno);
+
+    public ReplyPageDTO getListPage(Criteria cri, Long bno);
 }

@@ -1,6 +1,7 @@
 package com.dong.myboard.sevice;
 
 import com.dong.myboard.domain.Criteria;
+import com.dong.myboard.domain.ReplyPageDTO;
 import com.dong.myboard.domain.ReplyVO;
 import com.dong.myboard.mapper.ReplyMapper;
 import lombok.AllArgsConstructor;
@@ -45,5 +46,10 @@ public class ReplyServiceImpl implements ReplyService{
     public List<ReplyVO> getList(Criteria cri, Long bno) {
         log.info("getList...."+bno);
         return replyMapper.getListWithPaging(cri,bno);
+    }
+
+    @Override
+    public ReplyPageDTO getListPage(Criteria cri, Long bno) {
+        return new ReplyPageDTO(replyMapper.getCountByBno(bno),replyMapper.getListWithPaging(cri,bno));
     }
 }
