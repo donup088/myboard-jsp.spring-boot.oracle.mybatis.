@@ -1,5 +1,6 @@
 package com.dong.myboard.sevice;
 
+import com.dong.myboard.domain.BoardAttachVO;
 import com.dong.myboard.domain.BoardVO;
 import com.dong.myboard.domain.Criteria;
 import com.dong.myboard.mapper.BoardAttachMapper;
@@ -67,6 +68,12 @@ public class BoardServiceImpl implements BoardService{
     public int getTotal(Criteria cri) {
         log.info("getTotal: "+cri);
         return boardMapper.getTotalCount(cri);
+    }
+
+    @Override
+    public List<BoardAttachVO> getAttachList(Long bno) {
+        log.info("get Attach list by bno "+bno);
+        return boardAttachMapper.findByBno(bno);
     }
 
 

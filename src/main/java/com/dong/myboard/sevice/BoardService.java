@@ -1,5 +1,6 @@
 package com.dong.myboard.sevice;
 
+import com.dong.myboard.domain.BoardAttachVO;
 import com.dong.myboard.domain.BoardVO;
 import com.dong.myboard.domain.Criteria;
 
@@ -18,4 +19,5 @@ public interface BoardService {
 
     public int getTotal(Criteria cri);
 
+    public List<BoardAttachVO> getAttachList(Long bno);
 }
