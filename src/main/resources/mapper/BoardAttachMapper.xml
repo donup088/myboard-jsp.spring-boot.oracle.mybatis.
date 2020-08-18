@@ -18,4 +18,7 @@
         delete tbl_attach where bno=#{bno}
     </delete>
 
+    <select id="getOldFiles" resultType="com.dong.myboard.domain.BoardAttachVO">
+        select * from tbl_attach where uploadpath=to_char(sysdata -1,'yyyy\mm\dd')
+    </select>
 </mapper>
